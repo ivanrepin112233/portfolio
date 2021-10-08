@@ -1,0 +1,3 @@
+﻿  лб3.cpp
+C:\Users\ivanr\source\repos\лб3\лб3\лб3.cpp(21,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  лб3.vcxproj -> C:\Users\ivanr\source\repos\лб3\Debug\лб3.exe
