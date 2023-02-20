@@ -1,9 +1,0 @@
-﻿  lb2.cpp
-C:\Users\ivanr\source\repos\lb2\lb2\lb2.cpp(2,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
-C:\Users\ivanr\source\repos\lb2\lb2\lb2.cpp(3,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
-C:\Users\ivanr\source\repos\lb2\lb2\lb2.cpp(4,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
-C:\Users\ivanr\source\repos\lb2\lb2\lb2.cpp(39,17): warning C4101: end: неиспользованная локальная переменная
-C:\Users\ivanr\source\repos\lb2\lb2\lb2.cpp(68,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-C:\Users\ivanr\source\repos\lb2\lb2\lb2.cpp(78,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-C:\Users\ivanr\source\repos\lb2\lb2\lb2.cpp(104,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-  lb2.vcxproj -> C:\Users\ivanr\source\repos\lb2\Debug\lb2.exe
