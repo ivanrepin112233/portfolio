@@ -1,5 +1,0 @@
-﻿  lb5.cpp
-C:\Users\ivanr\source\repos\lb5\lb5\lb5.cpp(7,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
-C:\Users\ivanr\source\repos\lb5\lb5\lb5.cpp(61,16): warning C4101: p: неиспользованная локальная переменная
-C:\Users\ivanr\source\repos\lb5\lb5\lb5.cpp(196,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-  lb5.vcxproj -> C:\Users\ivanr\source\repos\lb5\Debug\lb5.exe
