@@ -233,6 +233,7 @@ public class MainWindow extends javax.swing.JFrame {
         for (int i = 0; i < rowCount; i++) {
             myTable.removeRow(0);
         }
+        recIntegrals.removeAll(recIntegrals);
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void calculateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateButtonActionPerformed
@@ -241,13 +242,13 @@ public class MainWindow extends javax.swing.JFrame {
         int row_count = myTable.getRowCount();
         for (int i = 0; i < row_count; i++) {
             RecIntegral recIntegral = recIntegrals.get(i);
-            try{
-                 recIntegral.run();
-                 recIntegral.join();
-            }catch(Exception ex){
-                 ex.printStackTrace();
+            try {
+                recIntegral.run();
+                recIntegral.join();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-            
+
             if (recIntegral.GetResult().obj != null) {
                 myTable.setValueAt(recIntegral.GetResult().obj, i, 3);
             } else {
@@ -286,16 +287,21 @@ public class MainWindow extends javax.swing.JFrame {
         int ret = fileopen.showDialog(null, "Открыть файл");
         if (ret == JFileChooser.APPROVE_OPTION) {
             File file = fileopen.getSelectedFile();
+
             try {
-                FileOutputStream outputStream = new FileOutputStream(file);
-                outputStream.close();
-                ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
-                out.writeObject(recIntegrals);
+                FileWriter myfile = new FileWriter(file.getAbsolutePath());
+                String str = new String();
+                for (RecIntegral ri : recIntegrals) {
+                    str += ri.toString();
+                }
+
+                System.out.print(str);
+                myfile.write(str);
+                myfile.flush();
 
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-
         }
     }//GEN-LAST:event_saveInTextTypeButtonActionPerformed
 
@@ -306,18 +312,39 @@ public class MainWindow extends javax.swing.JFrame {
             File file = fileopen.getSelectedFile();
 
             try {
-                ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+                FileReader myfile = new FileReader(file);
+                char recIntegralsBuf[] = new char[1000];
+                myfile.read(recIntegralsBuf);
+                System.out.println(recIntegralsBuf);
+                String recIntegralsStr = new String(recIntegralsBuf);
+                String[] recIntegralsStrList = recIntegralsStr.split(";");
 
-                recIntegrals = (ArrayList<RecIntegral>) in.readObject();
+                ArrayList<RecIntegral> recIntegralsList = new ArrayList<RecIntegral>();
+
+                for (int i = 0; i < recIntegralsStrList.length; i++) {
+
+                    if (i == recIntegralsStrList.length - 1) {
+                        break;
+                    }
+
+                    String riStr = recIntegralsStrList[i];
+                    if (!riStr.isEmpty() && !riStr.isBlank()) {
+                        RecIntegral ri = new RecIntegral(riStr);
+                        
+                        recIntegralsList.add(ri);
+                    }
+                }
+
+                recIntegrals = recIntegralsList;
 
                 updateTable();
 
             } catch (Exception ex) {
+
                 ex.printStackTrace();
             }
 
         }
-
     }//GEN-LAST:event_loadInTextTypeButtonActionPerformed
 
     private void updateTable() {
@@ -335,11 +362,41 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void saveInBinaryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveInBinaryButtonActionPerformed
-        
+        JFileChooser fileopen = new JFileChooser();
+        int ret = fileopen.showDialog(null, "Открыть файл");
+        if (ret == JFileChooser.APPROVE_OPTION) {
+            File file = fileopen.getSelectedFile();
+            try {
+                FileOutputStream outputStream = new FileOutputStream(file, false);
+
+                ObjectOutputStream out = new ObjectOutputStream(outputStream);
+                out.writeObject(recIntegrals);
+
+            } catch (IOException ex) {
+
+                ex.printStackTrace();
+            }
+
+        }
     }//GEN-LAST:event_saveInBinaryButtonActionPerformed
 
     private void loadInBinaryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadInBinaryButtonActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileopen = new JFileChooser();
+        int ret = fileopen.showDialog(null, "Открыть файл");
+        if (ret == JFileChooser.APPROVE_OPTION) {
+            File file = fileopen.getSelectedFile();
+
+            try {
+                ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+                recIntegrals.removeAll(recIntegrals);
+                recIntegrals = (ArrayList<RecIntegral>) in.readObject();
+
+                updateTable();
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_loadInBinaryButtonActionPerformed
 
     /**

@@ -7,9 +7,6 @@ package my.numberaddition;
 import java.io.Serializable;
 import my.numberaddition.Result;
 
-interface Operationable{
-    void execute();
-}
 /**
  *
  * @author maksv
@@ -29,6 +26,20 @@ public class RecIntegral extends Thread implements Serializable {
         this.bottomBorder = bottomBorder;
         this.upperBorder = upperBorder;
         this.step = step;
+    }
+    
+    public RecIntegral(String str){
+        String[] strs =  str.split(",");
+       
+       this.bottomBorder = Float.parseFloat(strs[0]);
+       this.upperBorder = Float.parseFloat(strs[1]);
+       this.step = Float.parseFloat(strs[2]);
+       
+       try{
+           this.result.obj =  Float.parseFloat(strs[3]);
+       }catch(Exception e){
+            this.result.obj = null;
+       }
     }
 
     public void run() {
@@ -77,5 +88,10 @@ public class RecIntegral extends Thread implements Serializable {
     public Result<Float> GetResult() {
         return this.result;
     }
-
+    
+    @Override
+    public String toString(){
+        return String.valueOf(this.bottomBorder) +"," + String.valueOf(this.upperBorder)+ "," + String.valueOf(this.step) + "," + String.valueOf(this.result.obj) + ";";
+    }
+ 
 }
